@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-#-------------------------------------------------------------------------
-#   █████╗ ██████╗  ██████╗██╗  ██╗████████╗██╗████████╗██╗   ██╗███████╗
-#  ██╔══██╗██╔══██╗██╔════╝██║  ██║╚══██╔══╝██║╚══██╔══╝██║   ██║██╔════╝
-#  ███████║██████╔╝██║     ███████║   ██║   ██║   ██║   ██║   ██║███████╗
-#  ██╔══██║██╔══██╗██║     ██╔══██║   ██║   ██║   ██║   ██║   ██║╚════██║
-#  ██║  ██║██║  ██║╚██████╗██║  ██║   ██║   ██║   ██║   ╚██████╔╝███████║
-#  ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝   ╚═╝    ╚═════╝ ╚══════╝
-#-------------------------------------------------------------------------
+#-----------------------------------------------------------
+#██████╗ ██████╗ ██╗   ██╗██╗██╗  ██╗██╗███╗   ██╗ ██████╗
+#██╔══██╗██╔══██╗██║   ██║██║██║ ██╔╝██║████╗  ██║██╔════╝
+#██████╔╝██████╔╝██║   ██║██║█████╔╝ ██║██╔██╗ ██║██║  ███╗
+#██╔══██╗██╔══██╗╚██╗ ██╔╝██║██╔═██╗ ██║██║╚██╗██║██║   ██║
+#██║  ██║██████╔╝ ╚████╔╝ ██║██║  ██╗██║██║ ╚████║╚██████╔╝
+#╚═╝  ╚═╝╚═════╝   ╚═══╝  ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝ ╚═════╝
+#-----------------------------------------------------------
 echo "--------------------------------------"
 echo "--          Network Setup           --"
 echo "--------------------------------------"
@@ -66,7 +66,7 @@ PKGS=(
 'alsa-plugins' # audio plugins
 'alsa-utils' # audio utils
 'ark' # compression
-'audiocd-kio' 
+'audiocd-kio'
 'autoconf' # build
 'automake' # build
 'base'
@@ -209,7 +209,7 @@ done
 
 #
 # determine processor type and install microcode
-# 
+#
 proc_type=$(lscpu | awk '/Vendor ID:/ {print $3}')
 case "$proc_type" in
 	GenuineIntel)
@@ -222,7 +222,7 @@ case "$proc_type" in
 		pacman -S --noconfirm amd-ucode
 		proc_ucode=amd-ucode.img
 		;;
-esac	
+esac
 
 # Graphics Drivers find and install
 if lspci | grep -E "NVIDIA|GeForce"; then
@@ -241,7 +241,7 @@ echo "username=$username" >> ${HOME}/ArchTitus/install.conf
 fi
 if [ $(whoami) = "root"  ];
 then
-    useradd -m -G wheel,libvirt -s /bin/bash $username 
+    useradd -m -G wheel,libvirt -s /bin/bash $username
 	passwd $username
 	cp -R /root/ArchTitus /home/$username/
     chown -R $username: /home/$username/ArchTitus
@@ -250,4 +250,3 @@ then
 else
 	echo "You are already a user proceed with aur installs"
 fi
-
