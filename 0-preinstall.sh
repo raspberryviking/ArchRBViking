@@ -122,8 +122,13 @@ echo "--------------------------------------"
 echo "--------- Assign SWAP volume ---------"
 echo "--------------------------------------"
 
-mkswap -L 'SWAP'
-swapon -L 'SWAP'
+if [[ ${DISK} =~ "nvme" ]]; then
+mkswap -L "SWAP" "${DISK}p3"
+swapon -L "SWAP" "${DISK}p4"
+else
+mkswap -L "SWAP" "${DISK}3"
+swapon -L "SWAP" "${DISK}4"
+fi
 
 #echo "--------------------------------------"
 #echo "-- Check for low memory systems <8G --"
@@ -136,8 +141,8 @@ swapon -L 'SWAP'
     #dd if=/dev/zero of=/mnt/opt/swap/swapfile bs=1M count=2048 status=progress
     #chmod 600 /mnt/opt/swap/swapfile #set permissions.
     #chown root /mnt/opt/swap/swapfile
-    #mkswap -L 'SWAP'
-    #swapon -L 'SWAP'
+    #mkswap /mnt/opt/swap/swapfile
+    #swapon /mnt/opt/swap/swapfile
     #The line below is written to /mnt/ but doesn't contain /mnt/, since it's just / for the sysytem itself.
     #echo "/opt/swap/swapfile	none	swap	sw	0	0" >> /mnt/etc/fstab #Add swap to fstab, so it KEEPS working after installation.
 fi
