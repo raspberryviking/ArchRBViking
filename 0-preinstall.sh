@@ -58,7 +58,8 @@ sgdisk -a 2048 -o ${DISK} # new gpt disk 2048 alignment
 # create partitions
 sgdisk -n 1::+1M --typecode=1:ef02 --change-name=1:'BIOSBOOT' ${DISK} # partition 1 (BIOS Boot Partition)
 sgdisk -n 2::+100M --typecode=2:ef00 --change-name=2:'EFIBOOT' ${DISK} # partition 2 (UEFI Boot Partition)
-sgdisk -n 3::-0 --typecode=3:8300 --change-name=3:'ROOT' ${DISK} # partition 3 (Root), default start, remaining
+sgdisk -n 3:0:+2GiB --typecode=4:8200 --change-name=3:'SWAP' ${DISK} # partition 3 (SWAP Partition)
+sgdisk -n 4::-0 --typecode=3:8300 --change-name=4:'ROOT' ${DISK} # partition 4 (Root), default start, remaining
 if [[ ! -d "/sys/firmware/efi" ]]; then
     sgdisk -A 1:set:2 ${DISK}
 fi
@@ -67,10 +68,12 @@ fi
 echo -e "\nCreating Filesystems...\n$HR"
 if [[ ${DISK} =~ "nvme" ]]; then
 mkfs.vfat -F32 -n "EFIBOOT" "${DISK}p2"
+mkfs.ext4 -L 'SWAP'
 mkfs.btrfs -L "ROOT" "${DISK}p3" -f
 mount -t btrfs "${DISK}p3" /mnt
 else
 mkfs.vfat -F32 -n "EFIBOOT" "${DISK}2"
+mkfs.ext4 -L 'SWAP'
 mkfs.btrfs -L "ROOT" "${DISK}3" -f
 mount -t btrfs "${DISK}3" /mnt
 fi
@@ -125,8 +128,8 @@ if [[  $TOTALMEM -lt 8000000 ]]; then
     dd if=/dev/zero of=/mnt/opt/swap/swapfile bs=1M count=2048 status=progress
     chmod 600 /mnt/opt/swap/swapfile #set permissions.
     chown root /mnt/opt/swap/swapfile
-    mkswap /mnt/opt/swap/swapfile
-    swapon /mnt/opt/swap/swapfile
+    mkswap -L 'SWAP'
+    swapon -L 'SWAP'
     #The line below is written to /mnt/ but doesn't contain /mnt/, since it's just / for the sysytem itself.
     echo "/opt/swap/swapfile	none	swap	sw	0	0" >> /mnt/etc/fstab #Add swap to fstab, so it KEEPS working after installation.
 fi
