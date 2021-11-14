@@ -4,7 +4,7 @@ This README contains the steps I do to install and configure a fully-functional 
 
 ---
 
-Creates 2Gb swap volume. This fork was created for testing purposes on low memory VMs'
+Checks if memory less than 8Gb and creates 2Gb swap volume in this is true.
 
 ---
 ## Create Arch ISO or Use Image
