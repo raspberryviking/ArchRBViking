@@ -237,14 +237,14 @@ fi
 echo -e "\nDone!\n"
 if ! source install.conf; then
 	read -p "Please enter username:" username
-echo "username=$username" >> ${HOME}/ArchRBViking/install.conf
+echo "username=$username" >> ${HOME}/ArchViking/install.conf
 fi
 if [ $(whoami) = "root"  ];
 then
     useradd -m -G wheel,libvirt -s /bin/bash $username
 	passwd $username
-	cp -R /root/ArchRBViking /home/$username/
-    chown -R $username: /home/$username/ArchRBViking
+	cp -R /root/ArchViking /home/$username/
+    chown -R $username: /home/$username/ArchViking
 	read -p "Please name your machine:" nameofmachine
 	echo $nameofmachine > /etc/hostname
 else
