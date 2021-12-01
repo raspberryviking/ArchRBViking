@@ -4,7 +4,7 @@ This README contains the steps I do to install and configure a fully-functional 
 
 ---
 
-Checks if memory less than 8Gb and creates 2Gb swap volume in this is true.
+Checks if memory less than 8Gb and creates 2Gb swap volume if true.
 
 ---
 ## Create Arch ISO or Use Image
