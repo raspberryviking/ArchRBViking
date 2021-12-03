@@ -226,7 +226,9 @@ case "$proc_type" in
 esac
 
 # Graphics Drivers find and install
-if lspci | grep -E "NVIDIA|GeForce"; then
+if lspci  | grep -E "QEMU"; then
+	pacman -S qemu-guest-agent --noconfirm --needed
+elif lspci | grep -E "NVIDIA|GeForce"; then
     pacman -S nvidia --noconfirm --needed
 	nvidia-xconfig
 elif lspci | grep -E "Radeon"; then
