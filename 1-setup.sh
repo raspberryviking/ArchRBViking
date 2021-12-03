@@ -200,6 +200,7 @@ PKGS=(
 'zsh'
 'zsh-syntax-highlighting'
 'zsh-autosuggestions'
+'packagekit-qt5' #Fixes Discover software manager
 )
 
 for PKG in "${PKGS[@]}"; do
