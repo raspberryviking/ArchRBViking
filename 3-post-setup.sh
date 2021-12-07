@@ -29,6 +29,10 @@ EOF
 
 # ------------------------------------------------------------------------
 
+if lspci  | grep -E "QEMU"; then
+    systemctl enable qemu-guest-agent
+fi
+
 echo -e "\nEnabling essential services"
 
 systemctl enable cups.service

@@ -26,7 +26,7 @@ PKGS=(
 'autojump'
 'awesome-terminal-fonts'
 'brave-bin' # Brave Browser
-'dxvk-bin' # DXVK DirectX to Vulcan
+'dxvk-bin' # DXVK DirectX to Vulkan
 'github-desktop-bin' # Github Desktop sync
 'lightly-git'
 'lightlyshaders-git'
@@ -49,6 +49,8 @@ PKGS=(
 'ttf-roboto'
 'zoom' # video conferences
 'snap-pac'
+'timeshift' # A system restore utility for Linux
+'timeshift-autosnap' # Timeshift auto-snapshot script which runs before package upgrade using Pacman hook.
 )
 
 for PKG in "${PKGS[@]}"; do
